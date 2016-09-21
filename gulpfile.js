@@ -13,7 +13,9 @@ gulp.task('serve', ['inject'], function () {
         }
     });
 
-    gulp.watch('./src/**/*.html', ['template', 'inject', 'reload']);
+    gulp.watch('./src/**/*.html', ['template', 'inject']);
+    gulp.watch('./src/css/**/*.css', ['user-css']);
+    gulp.watch('./src/js/**/*.js', ['user-js']);
 });
 
 gulp.task('reload', function () {
@@ -54,12 +56,14 @@ gulp.task('user-resources', ['user-css', 'user-js'], function () {
 
 gulp.task('user-js', function () {
     return gulp.src(['./src/js/**/*.js'])
-        .pipe(gulp.dest('./build/js'));
+        .pipe(gulp.dest('./build/js'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('user-css', function () {
     return gulp.src(['./src/css/**/*.css'])
-        .pipe(gulp.dest('./build/css'));
+        .pipe(gulp.dest('./build/css'))
+        .pipe(browserSync.stream());
 });
 
 /* Inject CSS and JS tags into index.html */
@@ -76,5 +80,6 @@ gulp.task('inject',
 
         return gulp.src('./build/index.html')
             .pipe(inject(series(vendorSources, userSources), {relative: true}))
-            .pipe(gulp.dest('./build'));
+            .pipe(gulp.dest('./build'))
+            .pipe(browserSync.stream());
     });
