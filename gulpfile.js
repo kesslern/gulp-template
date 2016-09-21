@@ -13,7 +13,11 @@ gulp.task('serve', ['inject'], function () {
         }
     });
 
-    gulp.watch('./app/**/*.html').on('change', browserSync.reload);
+    gulp.watch('./src/**/*.html', ['template', 'inject', 'reload']);
+});
+
+gulp.task('reload', function () {
+    browserSync.reload()
 });
 
 gulp.task('clean', function () {
