@@ -3,6 +3,7 @@ var browserSync = require('browser-sync').create();
 var inject      = require('gulp-inject');
 var clean       = require('gulp-clean');
 var series      = require('stream-series');
+var sass        = require('gulp-sass');
 var debug       = require('gulp-debug');
 
 gulp.task('serve', ['inject'], function () {
@@ -49,8 +50,8 @@ gulp.task('vendor-css', function () {
         .pipe(gulp.dest('./build/vendor/css'));
 });
 
-/* User CSS and JS into build directory  */
-gulp.task('user-resources', ['user-css', 'user-js'], function () {
+/* User SCSS and JS into build directory  */
+gulp.task('user-resources', ['user-scss', 'user-js'], function () {
     return true;
 });
 
@@ -60,8 +61,9 @@ gulp.task('user-js', function () {
         .pipe(browserSync.stream());
 });
 
-gulp.task('user-css', function () {
-    return gulp.src(['./src/css/**/*.css'])
+gulp.task('user-scss', function () {
+    return gulp.src(['./src/scss/**/*.scss'])
+        .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./build/css'))
         .pipe(browserSync.stream());
 });
