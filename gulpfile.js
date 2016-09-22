@@ -15,7 +15,7 @@ gulp.task('serve', ['inject'], function () {
     });
 
     gulp.watch('./src/**/*.html', ['template', 'inject']);
-    gulp.watch('./src/css/**/*.css', ['user-css']);
+    gulp.watch('./src/scss/**/*.scss', ['user-scss']);
     gulp.watch('./src/js/**/*.js', ['user-js']);
 });
 
