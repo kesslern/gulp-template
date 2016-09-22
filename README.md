@@ -1,4 +1,4 @@
-# ip-template
+# gulp-template
 
 A basic gulp template. Easily extended. Enough for simple apps
 
