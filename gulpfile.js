@@ -5,6 +5,7 @@ var clean       = require('gulp-clean');
 var series      = require('stream-series');
 var sass        = require('gulp-sass');
 var debug       = require('gulp-debug');
+var cleanDone   = false;
 
 gulp.task('serve', ['inject'], function () {
 
@@ -15,53 +16,56 @@ gulp.task('serve', ['inject'], function () {
     });
 
     gulp.watch('./src/**/*.html', ['template', 'inject']);
-    gulp.watch('./src/css/**/*.css', ['user-css']);
-    gulp.watch('./src/js/**/*.js', ['user-js']);
+    gulp.watch('./src/scss/**/*.scss', ['user-scss']);
+    gulp.watch('./src/js/**/*.js', ['user-js', 'reload']);
 });
+
+gulp.task('default', ['serve']);
 
 gulp.task('reload', function () {
     browserSync.reload()
 });
 
 gulp.task('clean', function () {
-    return gulp.src('./build', {read: false})
-        .pipe(clean());
+
+    if (!cleanDone) {
+        return gulp.src('./build', {read: false})
+            .pipe(clean())
+            .on('end', function () {
+                cleanDone = true;
+            });
+    }
 });
 
 /* Copy HTML to build*/
-gulp.task('template', function () {
+gulp.task('template', ['clean'], function () {
 
     return gulp.src(['./src/**/*.html'])
         .pipe(gulp.dest('./build'));
 });
 
 /* Vendor CSS and Javascript */
-gulp.task('vendor-resources', ['vendor-css', 'vendor-js'], function () {
-    return true;
-});
+gulp.task('vendor-resources', ['vendor-css', 'vendor-js'], function () {});
 
-gulp.task('vendor-js', function () {
+gulp.task('vendor-js', ['clean'], function () {
     return gulp.src(['./src/vendor/js/*.js'])
         .pipe(gulp.dest('./build/vendor/js'));
 });
 
-gulp.task('vendor-css', function () {
+gulp.task('vendor-css', ['clean'], function () {
     return gulp.src(['./src/vendor/css/**/*.css'])
         .pipe(gulp.dest('./build/vendor/css'));
 });
 
 /* User SCSS and JS into build directory  */
-gulp.task('user-resources', ['user-scss', 'user-js'], function () {
-    return true;
-});
+gulp.task('user-resources', ['user-scss', 'user-js'], function () {});
 
-gulp.task('user-js', function () {
+gulp.task('user-js', ['clean'], function () {
     return gulp.src(['./src/js/**/*.js'])
-        .pipe(gulp.dest('./build/js'))
-        .pipe(browserSync.stream());
+        .pipe(gulp.dest('./build/js'));
 });
 
-gulp.task('user-scss', function () {
+gulp.task('user-scss', ['clean'], function () {
     return gulp.src(['./src/scss/**/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./build/css'))
@@ -69,9 +73,7 @@ gulp.task('user-scss', function () {
 });
 
 /* Inject CSS and JS tags into index.html */
-gulp.task('inject',
-    ['vendor-resources', 'user-resources', 'template'],
-    function () {
+gulp.task('inject', ['vendor-resources', 'user-resources', 'template'], function () {
 
         var vendorSources = gulp.src(
             ['./build/vendor/js/**/*.js', './build/vendor/css/**/*.css'],
