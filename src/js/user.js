@@ -1,1 +1,5 @@
-console.log("user js test");
+angular.module("mainApp", [])
+    .controller('mainController', ['$scope', function($scope) {
+
+        $scope.header = "Starter Template"
+    }]);
