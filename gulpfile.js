@@ -44,8 +44,8 @@ gulp.task('template', ['clean'], function () {
         .pipe(gulp.dest('./build'));
 });
 
-/* Vendor CSS and Javascript */
-gulp.task('vendor-resources', ['vendor-css', 'vendor-js'], function () {});
+/* Vendor CSS, Javascript, and fonts */
+gulp.task('vendor-resources', ['vendor-css', 'vendor-js', 'vendor-fonts'], function () {});
 
 gulp.task('vendor-js', ['clean'], function () {
     return gulp.src(['./src/vendor/js/*.js'])
@@ -55,6 +55,11 @@ gulp.task('vendor-js', ['clean'], function () {
 gulp.task('vendor-css', ['clean'], function () {
     return gulp.src(['./src/vendor/css/**/*.css'])
         .pipe(gulp.dest('./build/vendor/css'));
+});
+
+gulp.task('vendor-fonts', ['clean'], function () {
+    return gulp.src(['./src/vendor/fonts/**'])
+        .pipe(gulp.dest('./build/vendor/fonts'));
 });
 
 /* User SCSS and JS into build directory  */
