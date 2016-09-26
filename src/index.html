@@ -2,23 +2,27 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>Gulp Template</title>
+    <title>Gulp Template</title>
 
-  <!--[if lt IE 9]>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+    <!-- inject:css -->
+    <!-- endinject -->
 
-  <!-- inject:css -->
-  <!-- endinject -->
+    <!-- inject:js -->
+    <!-- endinject -->
 
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
-<body>
-  Hello, world!
+<body data-ng-app="mainApp" data-ng-controller="mainController">
 
-  <!-- inject:js -->
-  <!-- endinject -->
+<ng-include src="'fragments/navbar.html'"></ng-include>
+
+<div class="section" ui-view></div>
+
+<ng-include src="'fragments/footer.html'"></ng-include>
+
 </body>
 </html>
