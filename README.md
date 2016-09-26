@@ -8,6 +8,7 @@ A basic gulp template. Easily extended. Enough for simple apps
 * SCSS support
 * Automatic injection of SCSS and JS resources into index.html
 * Loads vendor resources before user resources
+* Angular 1.5.8 and Materialize with ui-router
 
 ## Gulp tasks
 
