@@ -3,7 +3,9 @@ angular.module("mainApp", ['ui.router'])
 
         $scope.header = "Starter Template";
     }])
-    .config(function($stateProvider) {
+    .config(function($stateProvider, $urlRouterProvider) {
+        $urlRouterProvider.otherwise('/');
+
         $stateProvider
             .state('index', {
             url: '/',
