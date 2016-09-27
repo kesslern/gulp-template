@@ -1,4 +1,4 @@
-angular.module("mainApp", ['ui.router'])
+angular.module("mainApp", ['ui.router', 'ui.materialize', 'navbarApp'])
     .controller('mainController', ['$scope', function($scope) {
 
         $scope.header = "Starter Template";
@@ -17,12 +17,11 @@ angular.module("mainApp", ['ui.router'])
             });
     });
 
-
-// TODO: Use a directive
-(function($){
-    $(function(){
-
-        $('.button-collapse').sideNav();
-
-    }); // end of document ready
-})(jQuery); // end of jQuery name space
+angular.module('navbarApp', [])
+    .directive('sidenavInit', function () {
+        return {
+            link: function (scope, element) {
+                element.sideNav();
+            }
+        };
+    });

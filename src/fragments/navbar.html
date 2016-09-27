@@ -1,4 +1,4 @@
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="light-blue lighten-1" role="navigation" data-ng-app="navbarApp">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
         <ul class="right hide-on-med-and-down">
             <li ui-sref-active="active"><a ui-sref="index">Index</a></li>
@@ -9,6 +9,6 @@
             <li ui-sref-active="active"><a ui-sref="index">Index</a></li>
             <li ui-sref-active="active"><a ui-sref="about">About</a></li>
         </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        <a href="#" data-activates="nav-mobile" class="button-collapse" data-sidenav-init><i class="material-icons">menu</i></a>
     </div>
 </nav>
