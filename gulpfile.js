@@ -15,9 +15,9 @@ gulp.task('serve', ['inject'], function () {
         }
     });
 
-    gulp.watch('./src/**/*.html', ['template', 'inject']);
+    gulp.watch('./src/**/*.html', ['inject', 'reload']);
     gulp.watch('./src/scss/**/*.scss', ['user-scss']);
-    gulp.watch('./src/js/**/*.js', ['user-js', 'reload']);
+    gulp.watch('./src/js/**/*.js', ['inject', 'reload']);
 });
 
 gulp.task('default', ['serve']);
@@ -89,6 +89,5 @@ gulp.task('inject', ['vendor-resources', 'user-resources', 'template'], function
 
         return gulp.src('./build/index.html')
             .pipe(inject(series(vendorSources, userSources), {relative: true}))
-            .pipe(gulp.dest('./build'))
-            .pipe(browserSync.stream());
+            .pipe(gulp.dest('./build'));
     });
